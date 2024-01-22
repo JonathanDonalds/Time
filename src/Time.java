@@ -11,21 +11,16 @@ public class Time {
         this.seconds = seconds;
     }
 
-    public void tick() {
-        if (seconds == 59) {
-            if (minutes == 59) {
-                minutes = 0;
-                seconds = 0;
-                if (hours == 23) {
-                    hours = 0;
-                }
-            } else {
-            hours++;
-            seconds = 0;
-            }
-        } else {
-            seconds++;
-        }
+    public int getHours() {
+        return hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public int getSeconds() {
+        return seconds;
     }
 
     public String info() {
@@ -46,5 +41,38 @@ public class Time {
             info += seconds;
         }
         return info;
+    }
+
+    public void add(String time) {
+        hours += Integer.parseInt(time.substring(0, 2));
+        minutes += Integer.parseInt(time.substring(3, 5));
+        seconds += Integer.parseInt(time.substring(6, 8));
+        format();
+    }
+
+    public void add(Time time) {
+        hours += time.getHours();
+        minutes += time.getMinutes();
+        seconds += time.getSeconds();
+        format();
+    }
+
+    public void tick() {
+        seconds++;
+        format();
+    }
+
+    public void format() {
+        while (seconds > 59) {
+            minutes++;
+            seconds -= 60;
+        }
+        while (minutes > 59) {
+            hours++;
+            minutes -= 60;
+        }
+        while (hours > 23) {
+            hours -= 24;
+        }
     }
 }

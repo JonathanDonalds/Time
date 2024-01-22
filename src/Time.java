@@ -1,43 +1,50 @@
 import java.util.Objects;
 
 public class Time {
-    private String hours;
-    private String minutes;
-    private String seconds;
+    private int hours;
+    private int minutes;
+    private int seconds;
 
-    public Time(String hours, String minutes, String seconds) {
+    public Time(int hours, int minutes, int seconds) {
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
     }
 
     public void tick() {
-        if (seconds.equals(String.valueOf(59))) {
-            if (minutes.equals(String.valueOf(59))) {
-                minutes = "00";
-                seconds = "00";
-                if (hours.equals(String.valueOf(23))) {
-                    hours = "00";
+        if (seconds == 59) {
+            if (minutes == 59) {
+                minutes = 0;
+                seconds = 0;
+                if (hours == 23) {
+                    hours = 0;
                 }
             } else {
-            hours = String.valueOf(Integer.parseInt(hours) + 1);
-            seconds = "00";
+            hours++;
+            seconds = 0;
             }
         } else {
-            seconds = String.valueOf(Integer.parseInt(seconds) + 1);
+            seconds++;
         }
     }
 
     public String info() {
-        if (hours.length() == 1) {
-            hours = "0" + hours;
+        String info = "";
+        if (String.valueOf(hours).length() == 1) {
+            info += "0" + hours + ":";
+        } else {
+            info += hours + ":";
         }
-        if (minutes.length() == 1) {
-            minutes = "0" + minutes;
+        if (String.valueOf(minutes).length() == 1) {
+            info += "0" + minutes + ":";
+        } else {
+            info += minutes + ":";
         }
-        if (seconds.length() == 1) {
-            seconds = "0" + seconds;
+        if (String.valueOf(seconds).length() == 1) {
+            info += "0" + seconds;
+        } else {
+            info += seconds;
         }
-        return hours + ":" + minutes + ":" + seconds;
+        return info;
     }
 }
